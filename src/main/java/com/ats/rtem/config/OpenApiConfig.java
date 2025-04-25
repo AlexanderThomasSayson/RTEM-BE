@@ -36,11 +36,12 @@ public class OpenApiConfig {
                         .description("""
                                 API documentation for RTEM BE Spring Boot project.
                                 
-                                **Developer:**
+                                **Developers:**
                                 - Alexander Thomas Sayson
+                                - Kelvin Malabanan
                                 """)
                         .contact(new Contact()
-                                .name("Alexander Thomas Sayson")
+                                .name("RTEM-DEV-TEAM")
                                 .email("alexanderthomassayson@gmail.com")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
