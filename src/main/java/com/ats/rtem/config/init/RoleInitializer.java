@@ -29,6 +29,7 @@ public class RoleInitializer {
         if(roleDao.findByRoleName(roleName) == null){
             Role role = new Role();
             role.setRoleName(roleName);
+            role.setIsActive(true);
             roleDao.save(role);
             log.info("Role '{}' created", roleName);
         }else{

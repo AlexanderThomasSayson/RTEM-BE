@@ -30,6 +30,8 @@ public class Role {
     @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
 
+    private Boolean isActive;
+
     @Column(name = "date_created", updatable = false)
     private LocalDateTime dateCreated;
 
