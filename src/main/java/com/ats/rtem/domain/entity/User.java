@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,6 +29,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tbl_user")
+@DynamicInsert
+@DynamicUpdate
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +57,39 @@ public class User {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @Column(name = "country_code")
+    private String countryCode;
+
+    @Column(name = "region")
+    private String region;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "district")
+    private String district;
+
+    @Column(name = "barangay")
+    private String barangay;
+
+    @Column(name = "street_address")
+    private String streetAddress;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    @Column(name = "sss_number")
+    private String sssNumber;
+
+    @Column(name = "tin_number")
+    private String tinNumber;
+
+    @Column(name = "pagibig_number")
+    private String pagibigNumber;
+
+    @Column(name = "philhealth_number")
+    private String philhealthNumber;
+
     @Column(name = "status_id", nullable = false)
     private Long statusId;
 
@@ -78,5 +115,4 @@ public class User {
     protected void onUpdate() {
         this.dateModified = LocalDateTime.now();
     }
-
 }

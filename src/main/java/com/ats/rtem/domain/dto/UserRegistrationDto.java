@@ -1,11 +1,7 @@
 package com.ats.rtem.domain.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +50,39 @@ public class UserRegistrationDto {
     )
     @Schema(example = "09171234567", description = "User's mobile number")
     private String phoneNumber;
+
+    @Schema(example = "+63", description = "User's country calling code (optional)")
+    private String countryCode;
+
+    @Schema(example = "NCR", description = "Region name (optional)")
+    private String region;
+
+    @Schema(example = "Quezon City", description = "City name (optional)")
+    private String city;
+
+    @Schema(example = "District 6", description = "District name (optional)")
+    private String district;
+
+    @Schema(example = "Barangay Commonwealth", description = "Barangay name (optional)")
+    private String barangay;
+
+    @Schema(example = "Lot 15, Blk 20, Commonwealth Ave", description = "Street address (optional)")
+    private String streetAddress;
+
+    @Schema(example = "1121", description = "Postal/ZIP code (optional)")
+    private String postalCode;
+
+    @Schema(example = "34-5678901-2", description = "SSS number (optional)")
+    private String sssNumber;
+
+    @Schema(example = "123-456-789", description = "TIN number (optional)")
+    private String tinNumber;
+
+    @Schema(example = "1234-5678-9012", description = "PAGIBIG number (optional)")
+    private String pagibigNumber;
+
+    @Schema(example = "12-345678901-2", description = "PhilHealth number (optional)")
+    private String philhealthNumber;
 
     @NotNull(message = "Status ID is required!")
     @Schema(example = "1", description = "User's account status ID (e.g., 1 for active, 2 for inactive)")
