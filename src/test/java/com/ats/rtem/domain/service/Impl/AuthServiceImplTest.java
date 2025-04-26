@@ -19,6 +19,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -115,6 +119,7 @@ class AuthServiceImplTest {
 
     @Test
     void testLogin_success() {
+        // Arrange
         LoginDto loginDto = new LoginDto();
         loginDto.setUserNameOrEmail("testuser");
         loginDto.setPassword("password");
@@ -124,10 +129,29 @@ class AuthServiceImplTest {
                 .thenReturn(authentication);
         when(jwtTokenProvider.generateToken(authentication)).thenReturn("mocked-jwt-token");
 
+        User mockUser = new User();
+        mockUser.setFirstName("Test");
+        mockUser.setLastName("User");
+        mockUser.setUserName("testuser");
+        mockUser.setEmail("testuser@example.com");
+
+        Role mockRole = new Role();
+        mockRole.setRoleName("ROLE_USER");
+        mockUser.setRoles(Set.of(mockRole));
+
+        when(userDao.findByUserNameOrEmail(anyString(), anyString()))
+                .thenReturn(Optional.of(mockUser));
+
+        // Act
         AuthResponseDto response = authService.login(loginDto);
 
+        // Assert
         assertNotNull(response);
-        assertEquals("User logged-in successfully!", response.getMessage());
+        assertEquals("Test User", response.getName());
+        assertEquals("testuser", response.getUserName());
+        assertEquals("testuser@example.com", response.getEmail());
+        assertEquals(List.of("ROLE_USER"), response.getRoles());
         assertEquals("mocked-jwt-token", response.getBearerToken());
     }
+
 }
