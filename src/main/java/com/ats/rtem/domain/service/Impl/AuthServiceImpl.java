@@ -1,5 +1,6 @@
 package com.ats.rtem.domain.service.Impl;
 
+import com.ats.rtem.common.utils.NameUtils;
 import com.ats.rtem.domain.dao.RoleDao;
 import com.ats.rtem.domain.dao.UserDao;
 import com.ats.rtem.domain.dto.AuthResponseDto;
@@ -8,6 +9,7 @@ import com.ats.rtem.domain.dto.UserRegistrationDto;
 import com.ats.rtem.domain.entity.Role;
 import com.ats.rtem.domain.entity.User;
 import com.ats.rtem.domain.exception.ResourceNotFoundException;
+import com.ats.rtem.domain.exception.UsernameNotFoundException;
 import com.ats.rtem.domain.service.AuthService;
 import com.ats.rtem.security.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -87,11 +90,24 @@ public class AuthServiceImpl implements AuthService {
                 new UsernamePasswordAuthenticationToken(loginDto.getUserNameOrEmail(), loginDto.getPassword())
         );
 
+        User user = userDao.findByUserNameOrEmail(loginDto.getUserNameOrEmail(), loginDto.getUserNameOrEmail())
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "Username or Email '" + loginDto.getUserNameOrEmail() + "' does not exist!"
+                ));
+
+        String name = NameUtils.buildFullName(user);
+        String userName = user.getUserName();
+        String email = user.getEmail();
+        List<String> roles = user.getRoles()
+                .stream()
+                .map(Role::getRoleName)
+                .toList(); // Or .collect(Collectors.toList()) if you're using Java < 16
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
         log.info("User '{}' logged in successfully.", loginDto.getUserNameOrEmail());
-        return new AuthResponseDto("User logged-in successfully!", token);
+        return new AuthResponseDto(name, userName, email, roles, token);
     }
 
     private void validateUser(UserRegistrationDto userRegistrationDto) {
