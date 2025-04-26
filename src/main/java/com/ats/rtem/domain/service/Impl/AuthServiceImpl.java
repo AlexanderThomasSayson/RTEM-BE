@@ -50,6 +50,17 @@ public class AuthServiceImpl implements AuthService {
         user.setLastName(userRegistrationDto.getLastName());
         user.setPhoneNumber(userRegistrationDto.getPhoneNumber());
         user.setEmail(userRegistrationDto.getEmail());
+        user.setCountryCode(userRegistrationDto.getCountryCode());
+        user.setRegion(userRegistrationDto.getRegion());
+        user.setCity(userRegistrationDto.getCity());
+        user.setDistrict(userRegistrationDto.getDistrict());
+        user.setBarangay(userRegistrationDto.getBarangay());
+        user.setStreetAddress(userRegistrationDto.getStreetAddress());
+        user.setPostalCode(userRegistrationDto.getPostalCode());
+        user.setSssNumber(userRegistrationDto.getSssNumber());
+        user.setTinNumber(userRegistrationDto.getTinNumber());
+        user.setPagibigNumber(userRegistrationDto.getPagibigNumber());
+        user.setPhilhealthNumber(userRegistrationDto.getPhilhealthNumber());
         user.setUserName(userRegistrationDto.getUserName());
         user.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         user.setStatusId(1L);
