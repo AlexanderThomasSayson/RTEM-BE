@@ -69,6 +69,18 @@ public class DefaultResponse {
     }
 
     /**
+     * Creates a response for a successful login.
+     *
+     * @param object the authenticated object (e.g., AuthResponseDto) to include in the response body.
+     * @param <T>    the type of the object.
+     * @return an {@link ApiResponse} with HTTP status 200 (OK) and the object.
+     */
+    public static <T> ApiResponse<T> displayLoginSuccess(T object) {
+        return createResponse(HttpStatus.OK, true, "User logged in successfully", object, 0);
+    }
+
+
+    /**
      * Returns a response indicating no content was found.
      *
      * @return ApiResponse<Void> with HTTP status 204 (NO_CONTENT) and a message "No
