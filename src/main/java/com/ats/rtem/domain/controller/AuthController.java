@@ -36,6 +36,6 @@ public class AuthController {
     @PostMapping("/login")
     public ApiResponse<AuthResponseDto> login(@Validated @RequestBody LoginDto loginDto){
         AuthResponseDto response = authService.login(loginDto);
-        return DefaultResponse.displayCreatedObject(response);
+        return DefaultResponse.displayLoginSuccess(response);
     }
 }
