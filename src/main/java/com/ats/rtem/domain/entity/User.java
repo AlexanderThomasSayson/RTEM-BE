@@ -93,7 +93,7 @@ public class User {
     @Column(name = "status_id", nullable = false)
     private Long statusId;
 
-    @Column(name = "date_create", updatable = false)
+    @Column(name = "date_created", updatable = false)
     private LocalDateTime dateCreated;
 
     @Column(name = "date_modified")
